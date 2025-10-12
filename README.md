@@ -8,6 +8,7 @@ A powerful TypeScript/JavaScript library for advanced asynchronous operations, p
 - **Memory Caching**: TTL-based caching with automatic expiration management
 - **Parallel Processing**: Concurrency-controlled parallel execution with batching support
 - **Aggregate Caching**: Complex caching strategies for batch operations
+- **Utilities**: Handy helpers like `sleep` and iterable `batchGenerator`
 
 ## Installation
 
@@ -104,6 +105,47 @@ const results = await parasync.batchParallel(3, 10, items, async (batch) => {
 await parasync.batchParallelVoid(2, 5, items, async (batch) => {
   await saveBatch(batch);
 });
+```
+
+### Sleep
+
+Simple Promise-based delay helper.
+
+```typescript
+import parasync, { sleep } from 'parasync';
+
+// Await a delay
+await sleep(50);
+
+// Or via default namespace
+await parasync.sleep(100);
+
+// Parallel waits resolve by the longest delay
+await Promise.all([sleep(10), sleep(30), sleep(5)]);
+```
+
+### Generators
+
+Utilities for working with iterables.
+
+#### batchGenerator
+
+Split any iterable into consecutive batches of a fixed size.
+
+```typescript
+// Import from the generators subpath
+import { batchGenerator } from 'parasync/generators';
+
+const items = [1, 2, 3, 4, 5, 6, 7];
+
+for (const batch of batchGenerator(3, items)) {
+  // batch -> [1,2,3], then [4,5,6], then [7]
+  await processBatch(batch);
+}
+
+// Collect all batches at once
+const batches = Array.from(batchGenerator(2, new Set(items)));
+// [[1,2], [3,4], [5,6], [7]] depending on Set iteration order
 ```
 
 ### Aggregate Cache

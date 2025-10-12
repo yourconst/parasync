@@ -177,7 +177,7 @@ describe('MemCache', () => {
       await cache.get('test1', loader);
 
       // Wait for expiration
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await sleep(20);
 
       // Should trigger cleanup on next get
       let callCount = 0;
