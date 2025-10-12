@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import parasync from '../src/index';
+import parasync from '../dist';
 
 describe('parasync library', () => {
   it('should export ControlPromise', () => {

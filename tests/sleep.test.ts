@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { sleep } from '../src';
+import { sleep } from '../dist';
 
 describe('sleep', () => {
   it('should resolve after approximately given milliseconds', async () => {

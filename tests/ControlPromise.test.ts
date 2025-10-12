@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { ControlPromise } from '../src';
+import { ControlPromise } from '../dist';
 
 describe('ControlPromise', () => {
   describe('constructor', () => {

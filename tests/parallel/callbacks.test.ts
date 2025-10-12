@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { runParallel, runParallelVoid } from '../../src';
+import { runParallel, runParallelVoid } from '../../dist';
 
 describe('parallel/callbacks', () => {
   describe('runParallel', () => {

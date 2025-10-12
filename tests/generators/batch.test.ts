@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { batchGenerator } from '../../src/generators';
+import { batchGenerator } from '../../dist';
 
 describe('batchGenerator', () => {
   it('should yield batches of given size', () => {

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { MemCache, sleep } from '../src';
+import { MemCache, sleep } from '../dist';
 
 describe('MemCache', () => {
   describe('constructor', () => {

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { handleParallel, handleParallelVoid } from '../../src';
+import { handleParallel, handleParallelVoid } from '../../dist';
 
 describe('parallel/handle', () => {
   describe('handleParallel', () => {

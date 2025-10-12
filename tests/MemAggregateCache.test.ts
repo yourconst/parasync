@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { MemAggregateCache, sleep } from '../src';
+import { MemAggregateCache, sleep } from '../dist';
 
 interface TestValue {
   id: number;

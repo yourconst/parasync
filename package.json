@@ -9,9 +9,7 @@
   ],
   "scripts": {
     "build": "rm -rf dist && tsc --project tsconfig.json",
-    "test": "mocha",
-    "test:watch": "mocha --watch",
-    "test:coverage": "mocha --reporter spec",
+    "test": "npm run build && mocha",
     "lint": "eslint src/**.ts src/**/*.ts tests/**.ts tests/**/*.ts",
     "lint:fix": "eslint src/**.ts src/**/*.ts tests/**.ts tests/**/*.ts --fix",
     "format": "prettier --write src/**.ts src/**/*.ts tests/**.ts tests/**/*.ts",

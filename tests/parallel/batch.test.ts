@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { batchParallel, batchParallelVoid } from '../../src';
+import { batchParallel, batchParallelVoid } from '../../dist';
 
 describe('parallel/batch', () => {
   describe('batchParallel', () => {
