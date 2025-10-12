@@ -1,0 +1,11 @@
+# Dependency directories
+/node_modules/
+
+# Builded files
+/dist
+/dist_test
+
+# 
+.DS_Store
+.npm
+.eslintcache

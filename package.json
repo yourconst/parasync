@@ -1,0 +1,58 @@
+{
+  "name": "parasync",
+  "version": "0.1.2",
+  "description": "JS/TS async helpers",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc --project tsconfig.json",
+    "test": "mocha",
+    "test:watch": "mocha --watch",
+    "test:coverage": "mocha --reporter spec",
+    "lint": "eslint src/**.ts src/**/*.ts tests/**.ts tests/**/*.ts",
+    "lint:fix": "eslint src/**.ts src/**/*.ts tests/**.ts tests/**/*.ts --fix",
+    "format": "prettier --write src/**.ts src/**/*.ts tests/**.ts tests/**/*.ts",
+    "format:check": "prettier --check src/**.ts src/**/*.ts tests/**.ts tests/**/*.ts",
+    "check": "npm run lint && npm run format:check",
+    "prepublishOnly": "npm run check && npm run test && npm run build",
+    "precommit": "npm run check && npm run test",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourconst/parasync.git"
+  },
+  "keywords": [
+    "parallel",
+    "async",
+    "control",
+    "promise",
+    "concurrency",
+    "concurrently",
+    "cache"
+  ],
+  "author": "yourconst",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourconst/parasync/issues"
+  },
+  "homepage": "https://github.com/yourconst/parasync#readme",
+  "devDependencies": {
+    "@types/chai": "^4.3.11",
+    "@types/mocha": "^10.0.6",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
+    "chai": "^4.3.10",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "husky": "^9.1.7",
+    "mocha": "^10.2.0",
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
