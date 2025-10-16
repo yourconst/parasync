@@ -37,6 +37,9 @@ promise.resolve('Hello World');
 
 // Or reject
 promise.reject(new Error('Something went wrong'));
+
+// Fully compatible with Promise
+await promise; // string
 ```
 
 ### Memory Cache
@@ -150,7 +153,7 @@ const batches = Array.from(batchGenerator(2, new Set(items)));
 
 ### Aggregate Cache
 
-Advanced caching for complex batch operations.
+Advanced caching for complex batch operations with multiple loading strategies.
 
 ```typescript
 import parasync from 'parasync';
@@ -171,15 +174,27 @@ const cache = new parasync.MemAggregateCache(
 const user = await cache.get('user-123');
 
 // Get multiple items (batched automatically)
-const users = await cache.getMany(['user-1', 'user-2', 'user-3']);
+const users = await cache.mget(['user-1', 'user-2', 'user-3']);
 
-// Get by complex key
-const users = await cache.getManyByComplexKey('admin-users', async () => {
+// Get by complex key (returns keys, then loads values)
+const users = await cache.mgetByKeyKeys('admin-users', async () => {
   const response = await fetch('/api/users/admin');
   const data = await response.json();
   return data.map((user: User) => user.id);
 });
+
+// Get by complex key with values loader (more efficient - loads values directly)
+const users = await cache.mgetByKeyValues('admin-users', async () => {
+  const response = await fetch('/api/users/admin');
+  return response.json(); // Returns full user objects directly
+});
 ```
+
+#### Key Differences Between Methods
+
+- **`mgetByKeyKeys`**: Loads keys first, then fetches values using the main batch loader
+- **`mgetByKeyValues`**: Loads values directly, bypassing the main batch loader for better performance
+- **`mgetByKeyValues`** is more efficient when you already have the full objects and don't need to make additional API calls
 
 ## Use Cases
 
@@ -213,6 +228,28 @@ const cache = new parasync.MemCache(300000, async (key: string) => {
 });
 
 const data = await cache.get('some-key');
+```
+
+### Complex Data Loading with Values Cache
+```typescript
+import parasync from 'parasync';
+
+const userCache = new parasync.MemAggregateCache(
+  300000, // 5 minutes TTL
+  (user: User) => user.id,
+  async (ids: string[]) => {
+    // Batch load users by IDs
+    return await db.findUsersByIds(ids);
+  }
+);
+
+// Load admin users directly (more efficient than mgetByKeyKeys)
+const adminUsers = await userCache.mgetByKeyValues('admin-users', async () => {
+  return await db.findUsersByRole('admin');
+});
+
+// Individual users are now cached and can be accessed directly
+const user = await userCache.get('user-123');
 ```
 
 ## Performance Benefits

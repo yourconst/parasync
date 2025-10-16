@@ -34,7 +34,7 @@ export class MemAggregateCache<K extends MemCacheKey, CMK extends ComplexManyCac
     return this.kv.get(key);
   }
 
-  public async getMany(keys: K[]): Promise<V[]> {
+  public async mget(keys: K[]): Promise<V[]> {
     keys = [...keys];
 
     // NOTE: must be local stored for protect expired clean up possibility
@@ -78,9 +78,33 @@ export class MemAggregateCache<K extends MemCacheKey, CMK extends ComplexManyCac
     return Promise.all(keys.map(key => map.get(key)!));
   }
 
-  public async getManyByComplexKey(complexKey: CMK, loader: () => Promise<K[]>): Promise<V[]> {
+  public async mgetByKeyKeys(complexKey: CMK, loader: () => Promise<K[]>): Promise<V[]> {
     const keys = await this.cmkks.get(complexKey, () => loader());
 
-    return this.getMany(keys);
+    return this.mget(keys);
+  }
+
+  public async mgetByKeyValues(complexKey: CMK, loader: () => Promise<V[]>): Promise<V[]> {
+    let values: V[] | undefined;
+
+    const keys = await this.cmkks.get(complexKey, async () => {
+      values = await loader();
+      const keys: K[] = [];
+
+      for (const value of values) {
+        const key = this.getKey(value);
+
+        keys.push(key);
+        this.kv.set(key, value);
+      }
+
+      return keys;
+    });
+
+    if (values) {
+      return values;
+    }
+
+    return this.mget(keys);
   }
 }

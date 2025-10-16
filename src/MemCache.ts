@@ -68,4 +68,8 @@ export class MemCache<K extends MemCacheKey, V> {
 
     return stored.value;
   }
+
+  public set(key: K, value: V): void {
+    this.kv.set(key, new MemCacheEntry(this.ttl, Promise.resolve(value)));
+  }
 }
