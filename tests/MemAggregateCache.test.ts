@@ -204,11 +204,12 @@ describe('MemAggregateCache', () => {
 
   describe('mgetByKeyValues method', () => {
     it('should get values by complex key with values loader', async () => {
-      const valuesLoader = () => Promise.resolve([
-        { id: 1, name: 'item-1' },
-        { id: 2, name: 'item-2' },
-        { id: 3, name: 'item-3' },
-      ]);
+      const valuesLoader = () =>
+        Promise.resolve([
+          { id: 1, name: 'item-1' },
+          { id: 2, name: 'item-2' },
+          { id: 3, name: 'item-3' },
+        ]);
 
       const results = await cache.mgetByKeyValues('complex-1', valuesLoader);
 
@@ -221,10 +222,11 @@ describe('MemAggregateCache', () => {
     });
 
     it('should cache values and return them directly on first call', async () => {
-      const valuesLoader = () => Promise.resolve([
-        { id: 1, name: 'item-1' },
-        { id: 2, name: 'item-2' },
-      ]);
+      const valuesLoader = () =>
+        Promise.resolve([
+          { id: 1, name: 'item-1' },
+          { id: 2, name: 'item-2' },
+        ]);
 
       const results = await cache.mgetByKeyValues('complex-1', valuesLoader);
 
@@ -236,10 +238,11 @@ describe('MemAggregateCache', () => {
     });
 
     it('should use cached values on subsequent calls', async () => {
-      const valuesLoader = () => Promise.resolve([
-        { id: 1, name: 'item-1' },
-        { id: 2, name: 'item-2' },
-      ]);
+      const valuesLoader = () =>
+        Promise.resolve([
+          { id: 1, name: 'item-1' },
+          { id: 2, name: 'item-2' },
+        ]);
 
       // First call
       await cache.mgetByKeyValues('complex-1', valuesLoader);
@@ -270,10 +273,11 @@ describe('MemAggregateCache', () => {
     });
 
     it('should cache individual values for future use', async () => {
-      const valuesLoader = () => Promise.resolve([
-        { id: 1, name: 'item-1' },
-        { id: 2, name: 'item-2' },
-      ]);
+      const valuesLoader = () =>
+        Promise.resolve([
+          { id: 1, name: 'item-1' },
+          { id: 2, name: 'item-2' },
+        ]);
 
       // Load via complex key values
       await cache.mgetByKeyValues('complex-1', valuesLoader);
@@ -298,10 +302,11 @@ describe('MemAggregateCache', () => {
       loadKeys = [];
 
       // Load new values via complex key
-      const valuesLoader = () => Promise.resolve([
-        { id: 3, name: 'item-3' },
-        { id: 4, name: 'item-4' },
-      ]);
+      const valuesLoader = () =>
+        Promise.resolve([
+          { id: 3, name: 'item-3' },
+          { id: 4, name: 'item-4' },
+        ]);
 
       const results = await cache.mgetByKeyValues('complex-2', valuesLoader);
 
@@ -313,10 +318,11 @@ describe('MemAggregateCache', () => {
     });
 
     it('should work with mget after complex key values', async () => {
-      const valuesLoader = () => Promise.resolve([
-        { id: 1, name: 'item-1' },
-        { id: 2, name: 'item-2' },
-      ]);
+      const valuesLoader = () =>
+        Promise.resolve([
+          { id: 1, name: 'item-1' },
+          { id: 2, name: 'item-2' },
+        ]);
 
       // Load via complex key values
       await cache.mgetByKeyValues('complex-1', valuesLoader);
@@ -337,11 +343,12 @@ describe('MemAggregateCache', () => {
 
   describe('cache integration after mgetByKeyValues', () => {
     it('should make individual values accessible via get after mgetByKeyValues', async () => {
-      const valuesLoader = () => Promise.resolve([
-        { id: 1, name: 'item-1' },
-        { id: 2, name: 'item-2' },
-        { id: 3, name: 'item-3' },
-      ]);
+      const valuesLoader = () =>
+        Promise.resolve([
+          { id: 1, name: 'item-1' },
+          { id: 2, name: 'item-2' },
+          { id: 3, name: 'item-3' },
+        ]);
 
       // Load via complex key values
       await cache.mgetByKeyValues('complex-1', valuesLoader);
@@ -362,11 +369,12 @@ describe('MemAggregateCache', () => {
     });
 
     it('should make values accessible via mget after mgetByKeyValues', async () => {
-      const valuesLoader = () => Promise.resolve([
-        { id: 1, name: 'item-1' },
-        { id: 2, name: 'item-2' },
-        { id: 3, name: 'item-3' },
-      ]);
+      const valuesLoader = () =>
+        Promise.resolve([
+          { id: 1, name: 'item-1' },
+          { id: 2, name: 'item-2' },
+          { id: 3, name: 'item-3' },
+        ]);
 
       // Load via complex key values
       await cache.mgetByKeyValues('complex-1', valuesLoader);
@@ -386,10 +394,11 @@ describe('MemAggregateCache', () => {
     });
 
     it('should make values accessible via mgetByKeyKeys after mgetByKeyValues', async () => {
-      const valuesLoader = () => Promise.resolve([
-        { id: 1, name: 'item-1' },
-        { id: 2, name: 'item-2' },
-      ]);
+      const valuesLoader = () =>
+        Promise.resolve([
+          { id: 1, name: 'item-1' },
+          { id: 2, name: 'item-2' },
+        ]);
 
       // Load via complex key values
       await cache.mgetByKeyValues('complex-1', valuesLoader);
@@ -408,10 +417,11 @@ describe('MemAggregateCache', () => {
     });
 
     it('should handle mixed cached and new values after mgetByKeyValues', async () => {
-      const valuesLoader = () => Promise.resolve([
-        { id: 1, name: 'item-1' },
-        { id: 2, name: 'item-2' },
-      ]);
+      const valuesLoader = () =>
+        Promise.resolve([
+          { id: 1, name: 'item-1' },
+          { id: 2, name: 'item-2' },
+        ]);
 
       // Load some values via mgetByKeyValues
       await cache.mgetByKeyValues('complex-1', valuesLoader);
@@ -433,10 +443,11 @@ describe('MemAggregateCache', () => {
     });
 
     it('should handle partial cache hits after mgetByKeyValues', async () => {
-      const valuesLoader = () => Promise.resolve([
-        { id: 1, name: 'item-1' },
-        { id: 3, name: 'item-3' },
-      ]);
+      const valuesLoader = () =>
+        Promise.resolve([
+          { id: 1, name: 'item-1' },
+          { id: 3, name: 'item-3' },
+        ]);
 
       // Load some values via mgetByKeyValues
       await cache.mgetByKeyValues('complex-1', valuesLoader);
@@ -458,15 +469,17 @@ describe('MemAggregateCache', () => {
     });
 
     it('should work with multiple mgetByKeyValues calls sharing cached data', async () => {
-      const valuesLoader1 = () => Promise.resolve([
-        { id: 1, name: 'item-1' },
-        { id: 2, name: 'item-2' },
-      ]);
+      const valuesLoader1 = () =>
+        Promise.resolve([
+          { id: 1, name: 'item-1' },
+          { id: 2, name: 'item-2' },
+        ]);
 
-      const valuesLoader2 = () => Promise.resolve([
-        { id: 2, name: 'item-2' }, // Shared with first call
-        { id: 3, name: 'item-3' },
-      ]);
+      const valuesLoader2 = () =>
+        Promise.resolve([
+          { id: 2, name: 'item-2' }, // Shared with first call
+          { id: 3, name: 'item-3' },
+        ]);
 
       // First mgetByKeyValues call
       await cache.mgetByKeyValues('complex-1', valuesLoader1);
@@ -485,11 +498,12 @@ describe('MemAggregateCache', () => {
     });
 
     it('should handle concurrent access to cached data from mgetByKeyValues', async () => {
-      const valuesLoader = () => Promise.resolve([
-        { id: 1, name: 'item-1' },
-        { id: 2, name: 'item-2' },
-        { id: 3, name: 'item-3' },
-      ]);
+      const valuesLoader = () =>
+        Promise.resolve([
+          { id: 1, name: 'item-1' },
+          { id: 2, name: 'item-2' },
+          { id: 3, name: 'item-3' },
+        ]);
 
       // Load via mgetByKeyValues
       await cache.mgetByKeyValues('complex-1', valuesLoader);
@@ -503,10 +517,12 @@ describe('MemAggregateCache', () => {
         cache.get(1),
         cache.mget([2, 3]),
         cache.mgetByKeyKeys('complex-1', () => Promise.resolve([1, 2, 3])),
-        cache.mgetByKeyValues('complex-2', () => Promise.resolve([
-          { id: 1, name: 'item-1' },
-          { id: 4, name: 'item-4' }
-        ]))
+        cache.mgetByKeyValues('complex-2', () =>
+          Promise.resolve([
+            { id: 1, name: 'item-1' },
+            { id: 4, name: 'item-4' },
+          ])
+        ),
       ];
 
       const results = await Promise.all(promises);
@@ -514,16 +530,16 @@ describe('MemAggregateCache', () => {
       expect(results[0]).to.deep.equal({ id: 1, name: 'item-1' });
       expect(results[1]).to.deep.equal([
         { id: 2, name: 'item-2' },
-        { id: 3, name: 'item-3' }
+        { id: 3, name: 'item-3' },
       ]);
       expect(results[2]).to.deep.equal([
         { id: 1, name: 'item-1' },
         { id: 2, name: 'item-2' },
-        { id: 3, name: 'item-3' }
+        { id: 3, name: 'item-3' },
       ]);
       expect(results[3]).to.deep.equal([
         { id: 1, name: 'item-1' },
-        { id: 4, name: 'item-4' }
+        { id: 4, name: 'item-4' },
       ]);
 
       // Should not call main loader since all data is cached or loaded via mgetByKeyValues
