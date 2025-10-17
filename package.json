@@ -1,6 +1,6 @@
 {
   "name": "parasync",
-  "version": "0.1.6",
+  "version": "1.0.0",
   "description": "JS/TS async helpers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
